@@ -1,5 +1,4 @@
 import { test, expect } from '@playwright/test';
-import * as crypto from "crypto";
 
 test.describe('AddInquiry Component', () => {
   // skipping for now because this will hit the real db
