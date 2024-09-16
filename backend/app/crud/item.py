@@ -2,7 +2,7 @@ import uuid
 
 from sqlmodel import Session, select
 
-from app.models import (
+from app.models.item import (
     Item,
     ItemCreate,
 )

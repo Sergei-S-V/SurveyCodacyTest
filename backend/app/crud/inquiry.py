@@ -1,6 +1,6 @@
 from sqlmodel import Session, select
 
-from app.models import (
+from app.models.inquiry import (
     Inquiry,
     InquiryCreate,
 )

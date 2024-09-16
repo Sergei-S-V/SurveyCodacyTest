@@ -4,7 +4,7 @@ import string
 from sqlmodel import Session
 
 import app.crud.inquiry as crud
-from app.models import InquiryCreate
+from app.models.inquiry import InquiryCreate
 
 
 def test_create_inquiry(db: Session) -> None:
