@@ -1,6 +1,6 @@
 import uuid
 
-from sqlmodel import Session, select
+from sqlmodel import Session
 
 from app.models.item import (
     Item,
