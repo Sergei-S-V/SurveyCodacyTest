@@ -3,7 +3,7 @@ import string
 
 from sqlmodel import Session
 
-from app import crud
+import app.crud.inquiry as crud
 from app.models import InquiryCreate
 
 

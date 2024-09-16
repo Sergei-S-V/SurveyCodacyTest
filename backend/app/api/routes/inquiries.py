@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException
 
-from app import crud
+import app.crud.inquiry as crud
 from app.api.deps import SessionDep
 from app.models import Inquiry, InquiryCreate, InquiryPublic
 
