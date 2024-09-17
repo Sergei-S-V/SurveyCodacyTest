@@ -1,7 +1,7 @@
 import uuid
 from pydantic import EmailStr
 from sqlmodel import Field, Relationship, SQLModel
-
+from app.models.item import Item
 
 # Shared properties
 class UserBase(SQLModel):
