@@ -32,8 +32,7 @@ function isValidUnicode(str: string) {
     let retval;
     try {
         retval = str === decodeURIComponent(encodeURIComponent(str));
-    }
-    catch {
+    } catch {
         retval = false
     }
     return retval;
