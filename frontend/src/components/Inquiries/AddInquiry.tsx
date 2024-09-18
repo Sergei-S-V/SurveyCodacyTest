@@ -32,6 +32,21 @@ function isValidUnicode(str: string) {
     console.log('checking unicode')
   const retval = str === decodeURIComponent(encodeURIComponent(str));
     console.log(retval);
+    const regexp = new RegExp(/^[\u0000-\uFFFF]+$/)
+    const regMatch = regexp.test(str)
+    console.log(regMatch)
+      const nonBmpRegex = /[\uD800-\uDBFF][\uDC00-\uDFFF]|[\u{10000}-\u{10FFFF}]/u;
+    const regmatch2 = nonBmpRegex.test(str)
+    console.log(regmatch2)
+    let re3;
+      try {
+    const decoder = new TextDecoder();
+    decoder.decode(new Uint8Array(str.split('').map(char => char.charCodeAt(0))));
+    re3 = false;
+  } catch (error) {
+    re3 = true;
+  }
+  console.log(re3)
     return retval;
 }
 
