@@ -52,6 +52,7 @@ describe("Add Inquiry", () => {
         const textArea = await screen.getByTestId("add-inquiry-text");
         const shortString = "W".repeat(MIN_INQUIRY_LENGTH - 1);
         fireEvent.change(textArea, {target: {value: shortString}});
+        // eslint-disable-next-line
         await userEvent.click(screen.getByTestId("submit-add-inquiry"));
         await screen.getByText("Inquiry must be at least 10 characters.");
     });
@@ -60,6 +61,7 @@ describe("Add Inquiry", () => {
         const textArea = await screen.getByTestId("add-inquiry-text");
         const longString = "W".repeat(MAX_INQUIRY_LENGTH + 1);
         fireEvent.change(textArea, {target: {value: longString}});
+        // eslint-disable-next-line
         await userEvent.click(screen.getByTestId("submit-add-inquiry"));
         await screen.getByText("Inquiry can not be greater than 255 characters.");
     });
@@ -67,6 +69,7 @@ describe("Add Inquiry", () => {
     it("should display error message when user enters a non-Unicode string", async () => {
         const textArea = await screen.getByTestId("add-inquiry-text");
         fireEvent.change(textArea, {target: {value: nonUnicodeText}});
+        // eslint-disable-next-line
         await userEvent.click(screen.getByTestId("submit-add-inquiry"));
         await screen.getByText("Inquiry must be a valid unicode string.");
     });
@@ -74,6 +77,7 @@ describe("Add Inquiry", () => {
     it("should accept foreign language unicode characters", async() => {
         const textArea = await screen.getByTestId("add-inquiry-text");
         fireEvent.change(textArea, {target: {value: unicodeText}});
+        // eslint-disable-next-line
         await userEvent.click(screen.getByTestId("submit-add-inquiry"));
         const unicodeErrorString = await screen.queryByText("Inquiry must be a valid unicode string.");
         expect(unicodeErrorString).toBeNull();
