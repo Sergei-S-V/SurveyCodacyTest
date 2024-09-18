@@ -23,7 +23,6 @@ jest.mock("@tanstack/react-query", () => ({
     })
 }));
 
-// eslint-disable @typescript-eslint/await-thenable
 describe("Add Inquiry", () => {
     beforeEach(async () => {
         render(<Inquiries/>)
@@ -49,20 +48,25 @@ describe("Add Inquiry", () => {
         const textArea = await screen.getByTestId("add-inquiry-text");
         const longString = "W".repeat(MAX_INQUIRY_LENGTH + 1)
         fireEvent.change(textArea, {target: {value: longString}})
+        // eslint-disable-next-line @typescript-eslint/await-thenable
         await userEvent.click(screen.getByTestId("submit-add-inquiry"))
+        // eslint-disable-next-line @typescript-eslint/await-thenable
         await screen.getByText("Inquiry can not be greater than 255 characters.")
     })
     // We don't know yet how to generate non-unicode
     it.skip("should display error message when user enters a non-Unicode string", async () => {
         const textArea = await screen.getByTestId("add-inquiry-text");
         fireEvent.change(textArea, {target: {value: nonUnicodeText}})
+        // eslint-disable-next-line @typescript-eslint/await-thenable
         await userEvent.click(screen.getByTestId("submit-add-inquiry"))
+        // eslint-disable-next-line @typescript-eslint/await-thenable
         await screen.getByText("Inquiry must be a valid unicode string.")
     })
 
     it("should accept all valid UTF characters", async() => {
         const textArea = await screen.getByTestId("add-inquiry-text");
         fireEvent.change(textArea, {target: {value: unicodeText}})
+        // eslint-disable-next-line @typescript-eslint/await-thenable
         await userEvent.click(screen.getByTestId("submit-add-inquiry"))
         const unicodeErrorString = await screen.queryByText("Inquiry must be a valid unicode string.");
         expect(unicodeErrorString).toBeNull()
