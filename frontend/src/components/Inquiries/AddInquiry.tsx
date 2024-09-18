@@ -29,24 +29,13 @@ export const MIN_INQUIRY_LENGTH = 10;
 export const MAX_INQUIRY_LENGTH = 255;
 
 function isValidUnicode(str: string) {
-    console.log('checking unicode')
-  const retval = str === decodeURIComponent(encodeURIComponent(str));
-    console.log(retval);
-    const regexp = new RegExp(/^[\u0000-\uFFFF]+$/)
-    const regMatch = regexp.test(str)
-    console.log(regMatch)
-      const nonBmpRegex = /[\uD800-\uDBFF][\uDC00-\uDFFF]|[\u{10000}-\u{10FFFF}]/u;
-    const regmatch2 = nonBmpRegex.test(str)
-    console.log(regmatch2)
-    let re3;
-      try {
-    const decoder = new TextDecoder();
-    decoder.decode(new Uint8Array(str.split('').map(char => char.charCodeAt(0))));
-    re3 = false;
-  } catch (error) {
-    re3 = true;
-  }
-  console.log(re3)
+    let retval;
+    try {
+        retval = str === decodeURIComponent(encodeURIComponent(str));
+    }
+    catch {
+        retval = false
+    }
     return retval;
 }
 
@@ -83,7 +72,7 @@ const AddInquiry = ({isOpen, onClose}: AddInquiryProps) => {
             handleError(err, showToast)
         },
         onSettled: async () => {
-            await queryClient.invalidateQueries({ queryKey: ["inquiries"] });
+            await queryClient.invalidateQueries({queryKey: ["inquiries"]});
         },
     })
 
@@ -114,39 +103,36 @@ const AddInquiry = ({isOpen, onClose}: AddInquiryProps) => {
                                 data-testid="add-inquiry-text"
                                 { /* eslint-disable-next-line  */
                                     ...register("text", {
-                                    required: "Inquiry text is required.",
-                                    minLength: {
-                                        value: MIN_INQUIRY_LENGTH,
-                                        message: `Inquiry must be at least ${MIN_INQUIRY_LENGTH} characters.`
-                                    },
-                                    maxLength: {
-                                        value: MAX_INQUIRY_LENGTH,
-                                        message: `Inquiry can not be greater than ${MAX_INQUIRY_LENGTH} characters.`
-                                    },
-                                    validate: (value) => isValidUnicode(value) || "Inquiry must be a valid unicode string.",
-                                    pattern: {
-                                        value: /^[\u0000-\uFFFF]+$/,
-                                        message: "Inquiry must be a valid unicode string."
-                                    },
-                                })}
+                                        required: "Inquiry text is required.",
+                                        minLength: {
+                                            value: MIN_INQUIRY_LENGTH,
+                                            message: `Inquiry must be at least ${MIN_INQUIRY_LENGTH} characters.`
+                                        },
+                                        maxLength: {
+                                            value: MAX_INQUIRY_LENGTH,
+                                            message: `Inquiry can not be greater than ${MAX_INQUIRY_LENGTH} characters.`
+                                        },
+                                        validate: (value) => isValidUnicode(value) || "Inquiry must be a valid unicode string.",
+                                    })}
                                 placeholder="Enter the text of your inquiry."
                             />
 
 
                             {
-                            // errors is already typed by react-hook-form https://react-hook-form.com/docs/useform#errors */
-                            /* eslint-disable */
-                            errors.text && (
-                                <FormErrorMessage>{errors.text.message}</FormErrorMessage>
-                            )
-                            /* eslint-enable */
+                                // errors is already typed by react-hook-form https://react-hook-form.com/docs/useform#errors */
+                                /* eslint-disable */
+                                errors.text && (
+                                    <FormErrorMessage>{errors.text.message}</FormErrorMessage>
+                                )
+                                /* eslint-enable */
                             }
                         </FormControl>
                     </ModalBody>
 
                     <ModalFooter gap={3}>
                         {/* eslint-disable-next-line */}
-                        <Button variant="primary" type="submit" data-testid="submit-add-inquiry" isLoading={isSubmitting}>
+                        <Button variant="primary" type="submit" data-testid="submit-add-inquiry"
+                                isLoading={isSubmitting}>
                             Save
                         </Button>
                         <Button onClick={onClose}>Cancel</Button>
