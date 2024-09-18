@@ -14,65 +14,61 @@ jest.mock("../../src/components/Inquiries/InquiriesTable", () => ({
     default: () => (<div/>)
 }));
 
-
-// eslint-disable
+// eslint-disable-next-line
 jest.mock("@tanstack/react-query", () => ({
     ...jest.requireActual("@tanstack/react-query"),
+    // eslint-disable-next-line
     useQueryClient: () => {
     },
     useMutation: () => ({
-        mutate: () => {
+// eslint-disable-next-line
+                mutate: () => {
         }
     })
 }));
-// eslint-enable
 
 describe("Add Inquiry", () => {
     beforeEach(async () => {
-        render(<Inquiries/>)
+        render(<Inquiries/>);
         // eslint-disable-next-line
-        await userEvent.click(screen.getByText("Add Inquiry"))
-    })
+        await userEvent.click(screen.getByText("Add Inquiry"));
+    });
     it("should display add modal when user presses Add Inquiry button", async () => {
-        const textArea = await screen.getByTestId("add-inquiry-text")
+        const textArea = await screen.getByTestId("add-inquiry-text");
         // eslint-disable-next-line
-        fireEvent.change(textArea, {target: {value: "Why do birds suddenly appear every time you are near?"}})
-        await userEvent.click(screen.getByTestId("submit-add-inquiry"))
-    })
+        fireEvent.change(textArea, {target: {value: "Why do birds suddenly appear every time you are near?"}});
+        // eslint-disable-next-line
+        await userEvent.click(screen.getByTestId("submit-add-inquiry"));
+    });
     it("should display required error when no string is entered", async () => {
-        await userEvent.click(screen.getByTestId("submit-add-inquiry"))
-        await screen.getByText("Inquiry text is required.")
-    })
+        await userEvent.click(screen.getByTestId("submit-add-inquiry"));
+        await screen.getByText("Inquiry text is required.");
+    });
     it("should display error message when user enters inquiry less than 10 characters", async () => {
-        const textArea = await screen.getByTestId("add-inquiry-text")
-        const shortString = "W".repeat(MIN_INQUIRY_LENGTH - 1)
-        fireEvent.change(textArea, {target: {value: shortString}})
-        await userEvent.click(screen.getByTestId("submit-add-inquiry"))
-        await screen.getByText("Inquiry must be at least 10 characters.")
-    })
+        const textArea = await screen.getByTestId("add-inquiry-text");
+        const shortString = "W".repeat(MIN_INQUIRY_LENGTH - 1);
+        fireEvent.change(textArea, {target: {value: shortString}});
+        await userEvent.click(screen.getByTestId("submit-add-inquiry"));
+        await screen.getByText("Inquiry must be at least 10 characters.");
+    });
     it("should display error message when user enters inquiry more than 255 characters", async () => {
         const textArea = await screen.getByTestId("add-inquiry-text");
-        const longString = "W".repeat(MAX_INQUIRY_LENGTH + 1)
-        fireEvent.change(textArea, {target: {value: longString}})
-        // eslint-disable-next-line @typescript-eslint/await-thenable
-        await userEvent.click(screen.getByTestId("submit-add-inquiry"))
-        // eslint-disable-next-line @typescript-eslint/await-thenable
-        await screen.getByText("Inquiry can not be greater than 255 characters.")
-    })
+        const longString = "W".repeat(MAX_INQUIRY_LENGTH + 1);
+        fireEvent.change(textArea, {target: {value: longString}});
+        await userEvent.click(screen.getByTestId("submit-add-inquiry"));
+        await screen.getByText("Inquiry can not be greater than 255 characters.");
+    });
     it("should display error message when user enters a non-Unicode string", async () => {
         const textArea = await screen.getByTestId("add-inquiry-text");
-        fireEvent.change(textArea, {target: {value: nonUnicodeText}})
-        // eslint-disable-next-line @typescript-eslint/await-thenable
-        await userEvent.click(screen.getByTestId("submit-add-inquiry"))
-        // eslint-disable-next-line @typescript-eslint/await-thenable
-        await screen.getByText("Inquiry must be a valid unicode string.")
-    })
-
+        fireEvent.change(textArea, {target: {value: nonUnicodeText}});
+        await userEvent.click(screen.getByTestId("submit-add-inquiry"));
+        await screen.getByText("Inquiry must be a valid unicode string.");
+    });
     it("should accept foreign language unicode characters", async() => {
         const textArea = await screen.getByTestId("add-inquiry-text");
-        fireEvent.change(textArea, {target: {value: unicodeText}})
-        await userEvent.click(screen.getByTestId("submit-add-inquiry"))
+        fireEvent.change(textArea, {target: {value: unicodeText}});
+        await userEvent.click(screen.getByTestId("submit-add-inquiry"));
         const unicodeErrorString = await screen.queryByText("Inquiry must be a valid unicode string.");
-        expect(unicodeErrorString).toBeNull()
-    })
-})
+        expect(unicodeErrorString).toBeNull();
+    });
+});
