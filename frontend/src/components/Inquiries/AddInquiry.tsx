@@ -101,6 +101,10 @@ const AddInquiry = ({isOpen, onClose}: AddInquiryProps) => {
                                         value: MAX_INQUIRY_LENGTH,
                                         message: `Inquiry can not be greater than ${MAX_INQUIRY_LENGTH} characters.`
                                     },
+                                    pattern: {
+                                        value: /^[\u0000-\uFFFF]*$/,
+                                        message: "Inquiry must be a valid unicode string."
+                                    },
                                 })}
                                 placeholder="Enter the text of your inquiry."
                             />
