@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/await-thenable */
+
 import {fireEvent, render, screen} from "@testing-library/react";
 import userEvent from '@testing-library/user-event'
 import {Inquiries} from "../../src/routes/_layout/inquiries";
@@ -54,7 +56,7 @@ describe("Add Inquiry", () => {
         await screen.getByText("Inquiry can not be greater than 255 characters.")
     })
     // We don't know yet how to generate non-unicode
-    it.skip("should display error message when user enters a non-Unicode string", async () => {
+    it("should display error message when user enters a non-Unicode string", async () => {
         const textArea = await screen.getByTestId("add-inquiry-text");
         fireEvent.change(textArea, {target: {value: nonUnicodeText}})
         // eslint-disable-next-line @typescript-eslint/await-thenable
@@ -66,7 +68,6 @@ describe("Add Inquiry", () => {
     it("should accept all valid UTF characters", async() => {
         const textArea = await screen.getByTestId("add-inquiry-text");
         fireEvent.change(textArea, {target: {value: unicodeText}})
-        // eslint-disable-next-line @typescript-eslint/await-thenable
         await userEvent.click(screen.getByTestId("submit-add-inquiry"))
         const unicodeErrorString = await screen.queryByText("Inquiry must be a valid unicode string.");
         expect(unicodeErrorString).toBeNull()
