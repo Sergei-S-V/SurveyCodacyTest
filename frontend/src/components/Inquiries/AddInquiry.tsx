@@ -28,8 +28,8 @@ interface AddInquiryProps {
 export const MIN_INQUIRY_LENGTH = 10;
 export const MAX_INQUIRY_LENGTH = 255;
 
-function isValidUnicode(str: string) {
-    let retval;
+function isValidUnicode(str: string): boolean {
+    let retval: boolean;
     try {
         retval = str === decodeURIComponent(encodeURIComponent(str));
     } catch {
@@ -111,7 +111,7 @@ const AddInquiry = ({isOpen, onClose}: AddInquiryProps) => {
                                             value: MAX_INQUIRY_LENGTH,
                                             message: `Inquiry can not be greater than ${MAX_INQUIRY_LENGTH} characters.`
                                         },
-                                        validate: (value) => isValidUnicode(value) || "Inquiry must be a valid unicode string.",
+                                        validate: (value: string) => isValidUnicode(value) || "Inquiry must be a valid unicode string.",
                                     })}
                                 placeholder="Enter the text of your inquiry."
                             />
