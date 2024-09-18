@@ -23,7 +23,7 @@ jest.mock("@tanstack/react-query", () => ({
     })
 }));
 
-
+// eslint-disable @typescript-eslint/await-thenable
 describe("Add Inquiry", () => {
     beforeEach(async () => {
         render(<Inquiries/>)
