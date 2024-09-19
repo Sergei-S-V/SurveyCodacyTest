@@ -1,12 +1,3 @@
-/* Codacy is unhappy with await */
-/* eslint-disable @typescript-eslint/await-thenable */
-/* Codacy is unhappy with click events */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* Codacy is unhappy with mocking */
-/* eslint-disable @typescript-eslint/no-empty-function */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-
 import { fireEvent, render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { Inquiries } from "../../src/routes/_layout/inquiries"
