@@ -1,7 +1,8 @@
-/* Codacy does not like await or click events! */
+/* Codacy does not like await or click events or mocking with empty callbacks */
 /* eslint-disable @typescript-eslint/await-thenable */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-empty-function */
 
 import { fireEvent, render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
@@ -22,13 +23,10 @@ jest.mock("../../src/components/Inquiries/InquiriesTable", () => ({
   default: () => <div />,
 }))
 
-// eslint-disable-next-line
 jest.mock("@tanstack/react-query", () => ({
   ...jest.requireActual("@tanstack/react-query"),
-  // eslint-disable-next-line
   useQueryClient: () => {},
   useMutation: () => ({
-    // eslint-disable-next-line
     mutate: () => {},
   }),
 }))
