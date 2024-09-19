@@ -26,7 +26,7 @@ interface AddInquiryProps {
 }
 
 export const MIN_INQUIRY_LENGTH = 10;
-export const MAX_INQUIRY_LENGTH = 255;
+export const MAX_INQUIRY_LENGTH = 256;
 
 function isValidUnicode(str: string): boolean {
     let retval: boolean;
