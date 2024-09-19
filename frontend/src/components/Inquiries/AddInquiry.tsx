@@ -130,7 +130,8 @@ const AddInquiry = ({isOpen, onClose}: AddInquiryProps) => {
 
                     <ModalFooter gap={3}>
                         {/* eslint-disable-next-line */}
-                        <Button variant="primary" type="submit" data-testid="submit-add-inquiry" isLoading={isSubmitting}>
+                        <Button variant="primary" type="submit" data-testid="submit-add-inquiry"
+                                isLoading={isSubmitting}>
                             Save
                         </Button>
                         <Button onClick={onClose}>Cancel</Button>

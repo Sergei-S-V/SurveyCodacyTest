@@ -21,7 +21,7 @@ jest.mock("@tanstack/react-query", () => ({
     useQueryClient: () => {
     },
     useMutation: () => ({
-// eslint-disable-next-line
+        // eslint-disable-next-line
         mutate: () => {
         }
     })
