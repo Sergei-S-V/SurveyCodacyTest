@@ -54,7 +54,7 @@ describe("Add Inquiry", () => {
         fireEvent.change(textArea, {target: {value: shortString}})
         // eslint-disable-next-line
         await userEvent.click(screen.getByTestId("submit-add-inquiry"))
-        await screen.getByText("Inquiry must be at least 10 characters.")
+        await screen.getByText(`Inquiry must be at least ${MIN_INQUIRY_LENGTH} characters.`)
     })
 
     it("should display error message when user enters inquiry more than 255 characters", async () => {
@@ -63,7 +63,7 @@ describe("Add Inquiry", () => {
         fireEvent.change(textArea, {target: {value: longString}})
         // eslint-disable-next-line
         await userEvent.click(screen.getByTestId("submit-add-inquiry"))
-        await screen.getByText("Inquiry can not be greater than 255 characters.")
+        await screen.getByText(`Inquiry can not be greater than ${MAX_INQUIRY_LENGTH} characters.`)
     })
 
     it("should display error message when user enters a non-Unicode string", async () => {
