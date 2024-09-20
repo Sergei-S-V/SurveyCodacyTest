@@ -50,4 +50,4 @@ def test_should_raise_error_with_wrong_text_length(mock_session):
     with pytest.raises(ValidationError) as ve:
         inquiry_data = InquiryCreate(text=long_string)
         create_inquiry(session=mock_session, inquiry_in=inquiry_data)
-        assert "String should have at most 255 characters" in ve.value
+        assert "String should have at most 256 characters" in ve.value
