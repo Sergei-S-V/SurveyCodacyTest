@@ -1,8 +1,8 @@
-import unittest.mock
-from unittest.mock import ANY, Mock
+from unittest.mock import ANY, MagicMock, Mock
 
 import pytest
 from fastapi.testclient import TestClient
+from pytest import MonkeyPatch
 
 import app.services.inquiries
 from app.core.config import settings
@@ -10,8 +10,8 @@ from app.models import Inquiry, InquiryCreate
 
 
 @pytest.fixture(autouse=True)
-def create_inquiry_mock(monkeypatch):
-    _mock = unittest.mock.MagicMock()
+def create_inquiry_mock(monkeypatch: MonkeyPatch) -> MagicMock:
+    _mock = MagicMock()
     monkeypatch.setattr(
         app.services.inquiries, app.services.inquiries.create_inquiry.__name__, _mock
     )
@@ -19,8 +19,8 @@ def create_inquiry_mock(monkeypatch):
 
 
 @pytest.fixture(autouse=True)
-def get_inquiry_by_text_mock(monkeypatch):
-    _mock = unittest.mock.MagicMock()
+def get_inquiry_by_text_mock(monkeypatch: MonkeyPatch) -> MagicMock:
+    _mock = MagicMock()
     monkeypatch.setattr(
         app.services.inquiries,
         app.services.inquiries.get_inquiry_by_text.__name__,
