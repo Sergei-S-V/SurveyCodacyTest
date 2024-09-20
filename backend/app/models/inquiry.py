@@ -17,7 +17,7 @@ class InquiryCreate(InquiryBase):
 # Database model, database table inferred from class name
 class Inquiry(InquiryBase, table=True):
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
-    text: str = Field(min_length=10, max_length=255, unique=True)
+    text: str = Field(min_length=10, max_length=256, unique=True)
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 

@@ -23,11 +23,7 @@ def create_inquiry(*, session: SessionDep, inquiry_in: InquiryCreate) -> Inquiry
             detail="This inquiry already exists.",
         )
 
-    inquiry = Inquiry.model_validate(inquiry_in)
-    session.add(inquiry)
-    session.commit()
-    session.refresh(inquiry)
-    return inquiry
+    return inquiries_service.create_inquiry(session=session, inquiry_in=inquiry_in)
 
 
 @router.get("/", response_model=InquriesPublic)
