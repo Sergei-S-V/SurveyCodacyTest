@@ -39,7 +39,7 @@ def test_create_inquiry_api_calls_create_inquiry_service(
     get_inquiry_by_text_mock.return_value = None
     create_inquiry_mock.return_value = Inquiry(text=text_content)
     data = {"text": text_content}
-    response = client.post(
+    client.post(
         f"{settings.API_V1_STR}/inquiries/",
         headers=superuser_token_headers,
         json=data,
@@ -62,7 +62,7 @@ def test_create_inquiry_does_not_create_duplicate(
     get_inquiry_by_text_mock.return_value = Inquiry(text=text_content)
     create_inquiry_mock.return_value = Inquiry(text=text_content)
     data = {"text": text_content}
-    response = client.post(
+    client.post(
         f"{settings.API_V1_STR}/inquiries/",
         headers=superuser_token_headers,
         json=data,
