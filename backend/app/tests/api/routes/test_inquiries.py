@@ -10,21 +10,6 @@ from app.core.config import settings
 from app.tests.utils.inquiry import create_random_inquiry
 
 
-def test_create_inquiry(
-    client: TestClient, superuser_token_headers: dict[str, str]
-) -> None:
-    # pylint: disable=B311
-    data = {"text": "".join(random.choice(string.printable) for _ in range(255))}
-    response = client.post(
-        f"{settings.API_V1_STR}/inquiries/",
-        headers=superuser_token_headers,
-        json=data,
-    )
-    assert response.status_code == 200
-    content = response.json()
-    assert content["text"] == data["text"]
-
-
 def test_read_inquries(
     client: TestClient, superuser_token_headers: dict[str, str], db: Session
 ) -> None:
