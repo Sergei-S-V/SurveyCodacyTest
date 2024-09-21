@@ -37,7 +37,6 @@ def test_create_inquiry_api_calls_create_inquiry_service(
     create_inquiry_mock: Mock,
     get_inquiry_by_text_mock: Mock,
 ) -> None:
-    global inquiry_text
     get_inquiry_by_text_mock.return_value = None
     create_inquiry_mock.return_value = Inquiry(text=inquiry_text)
     data = {"text": inquiry_text}
@@ -60,7 +59,6 @@ def test_create_inquiry_does_not_create_duplicate(
     create_inquiry_mock: Mock,
     get_inquiry_by_text_mock: Mock,
 ) -> None:
-    global inquiry_text
     get_inquiry_by_text_mock.return_value = Inquiry(text=inquiry_text)
     create_inquiry_mock.return_value = None
     data = {"text": inquiry_text}
