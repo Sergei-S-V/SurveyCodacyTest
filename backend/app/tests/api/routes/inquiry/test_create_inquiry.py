@@ -31,7 +31,7 @@ def get_inquiry_by_text_mock(monkeypatch: MonkeyPatch) -> MagicMock:
     return _mock
 
 
-def test_create_inquiry_api_calls_create_inquiry_service(
+def test_create_inquiry_route_should_invoke_create_inquiry_service_with_correct_arguments_when_inquiry_does_not_exist(
     client: TestClient,
     superuser_token_headers: dict[str, str],
     create_inquiry_mock: Mock,
@@ -53,7 +53,7 @@ def test_create_inquiry_api_calls_create_inquiry_service(
     )
 
 
-def test_create_inquiry_does_not_create_duplicate(
+def test_create_inquiry_route_should_not_ask_inquiry_service_to_create_inquiry_when_inquiry_already_exists(
     client: TestClient,
     superuser_token_headers: dict[str, str],
     create_inquiry_mock: Mock,
