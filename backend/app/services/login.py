@@ -11,4 +11,4 @@ def authenticate(*, session: Session, email: str, password: str) -> User | None:
         return None
     if not verify_password(password, db_user.hashed_password):
         return None
-    return db_user
+    return db_user  # '$2b$12$VlLv03E6yEyZOgWhLBckL.7vAEODWIy/nxdB08m7FLt7DqK96UEaa'
