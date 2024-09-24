@@ -28,7 +28,15 @@ def init_db(session: Session) -> None:
         user_in = UserCreate(
             email=settings.FIRST_SUPERUSER,
             password=settings.FIRST_SUPERUSER_PASSWORD,
+            full_name=None,
             is_superuser=True,
         )
+        print("session", session.bind.engine.url, id(session))
+
         user = users.create_user(session=session, user_create=user_in)
-        print(user)
+        print("created user in init_db", user)
+        """
+        created user in init_db full_name=None email='admin@example.com' 
+        hashed_password='$2b$12$tq7nXZZ2Tfv9Hplrnj/0t.2Y5u6o5oVOLaOcnF9N/ClSZ5mX7Bu2i' 
+        is_active=True is_superuser=True id=UUID('b5a9aaf9-d206-4420-adde-985a3751195c')
+"""
