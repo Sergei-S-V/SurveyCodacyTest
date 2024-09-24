@@ -36,6 +36,7 @@ def update_user(*, session: Session, db_user: User, user_in: UserUpdate) -> Any:
 
 def get_user_by_email(*, session: Session, email: str) -> User | None:
     statement = select(User).where(User.email == email)
+    print("get user by email", session.bind.engine.url, id(session))
     session_user = session.exec(statement).first()
     print("session user", session_user)
     return session_user

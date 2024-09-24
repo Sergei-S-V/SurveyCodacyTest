@@ -28,13 +28,15 @@ def init_db(session: Session) -> None:
         user_in = UserCreate(
             email=settings.FIRST_SUPERUSER,
             password=settings.FIRST_SUPERUSER_PASSWORD,
-            full_name=None,
             is_superuser=True,
         )
         print("session", session.bind.engine.url, id(session))
 
         user = users.create_user(session=session, user_create=user_in)
         print("created user in init_db", user)
+        statement = select(User).where(User.email == user_in.email)
+        session_user = session.exec(statement).first()
+        print("got user in init_db", session_user)
         """
         created user in init_db full_name=None email='admin@example.com' 
         hashed_password='$2b$12$tq7nXZZ2Tfv9Hplrnj/0t.2Y5u6o5oVOLaOcnF9N/ClSZ5mX7Bu2i' 

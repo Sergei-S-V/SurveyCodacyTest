@@ -19,6 +19,7 @@ reusable_oauth2 = OAuth2PasswordBearer(
 
 
 def get_db() -> Generator[Session, None, None]:
+    print("the real deal get db")
     with Session(engine) as session:
         yield session
 

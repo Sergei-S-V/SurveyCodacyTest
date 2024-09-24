@@ -29,7 +29,7 @@ def login_access_token(
     """
     OAuth2 compatible token login, get an access token for future requests
     """
-    print("session", session.bind.engine.url, id(session))
+    print("login access session", session.bind.engine.url, id(session))
 
     user = login_service.authenticate(
         session=session, email=form_data.username, password=form_data.password

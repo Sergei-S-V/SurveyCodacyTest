@@ -28,6 +28,6 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 def get_password_hash(password: str) -> str:  # 'ywxzvmhzcsquyxdfimmlqotedvvtkdcs'
     pw_hash = pwd_context.hash(password)
     print(
-        "pwee wee hash", pw_hash
+        "create user pashword hash", pw_hash
     )  # '$2b$12$elQrED551O0IAaituKpLReIYT26hkthHIsreAb3e9YG3IxWPGQ7s2'
     return pw_hash  # '$2b$12$0r.599atzWi3rrN0Jdokde0bBAfoBvKS2IGtcgWG0ijOoSt5ohoVS'

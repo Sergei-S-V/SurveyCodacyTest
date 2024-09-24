@@ -17,15 +17,18 @@ from app.tests.utils.utils import get_superuser_token_headers
 engine = create_engine(
     "sqlite:///:memory:",
     connect_args={"check_same_thread": False},
-    # poolclass=StaticPool,
+    poolclass=StaticPool,
 )
 
-TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+# session has to be sqlModel not sqlAlchemy https://github.com/fastapi/sqlmodel/issues/75
+TestingSessionLocal = sessionmaker(
+    class_=Session, autocommit=False, autoflush=False, bind=engine
+)
 SQLModel.metadata.create_all(engine)
-glossess = None
 
 
 def override_get_db():
+    print("override get db")
     try:
         db = TestingSessionLocal()
         yield db
