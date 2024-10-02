@@ -2,6 +2,8 @@ import uuid
 
 from sqlmodel import Field, SQLModel
 
+from app.models.mixins import IdMixin
+
 MIN_NAME_LENGTH = 1
 MAX_NAME_LENGTH = 255
 MAX_DESCRIPTION_LENGTH = 1024
@@ -19,8 +21,7 @@ class ThemeCreate(ThemeBase):
 
 
 # Database model, database table inferred from class name
-class Theme(ThemeBase, table=True):
-    id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
+class Theme(ThemeBase, IdMixin, table=True):
     name: str = Field(
         min_length=MIN_NAME_LENGTH, max_length=MAX_NAME_LENGTH, unique=True
     )
@@ -28,7 +29,7 @@ class Theme(ThemeBase, table=True):
 
 # Properties to return via API, id is always required
 class ThemePublic(ThemeBase):
-    id: uuid.UUID
+    id: int
 
 
 class ThemesPublic(SQLModel):
