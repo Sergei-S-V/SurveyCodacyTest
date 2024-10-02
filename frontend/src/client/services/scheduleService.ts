@@ -1,7 +1,6 @@
 import type { CancelablePromise } from "../core/CancelablePromise";
 import { OpenAPI } from "../core/OpenAPI";
 import { request as __request } from "../core/request";
-import { SchedulePublic } from "../models";
 
 export interface TDataCreateSchedule {
   startDate: string
@@ -18,7 +17,7 @@ export type TDataReadSchedule = {
 
 export function createSchedule(
   schedule: TDataCreateSchedule,
-): CancelablePromise<SchedulePublic> {
+): CancelablePromise<TDataCreateSchedule> {
   return __request(OpenAPI, {
     method: "POST",
     url: "/api/v1/schedule",
@@ -32,7 +31,7 @@ export function createSchedule(
 
 export function readSchedule(
   data: TDataReadSchedule,
-): CancelablePromise<SchedulePublic> {
+): CancelablePromise<TDataCreateSchedule> {
   const { id } = data;
   return __request(OpenAPI, {
     method: "GET",

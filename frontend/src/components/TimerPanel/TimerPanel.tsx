@@ -18,15 +18,9 @@ import {
   NumberInputField,
   NumberInputStepper,
 } from "@chakra-ui/react"
-import { useMutation, useQueryClient } from "@tanstack/react-query"
 import dayjs from "dayjs"
-import type { ApiError } from "../../client"
-import {
-  type TDataCreateSchedule,
-  createSchedule,
-} from "../../client/services/scheduleService.ts"
-import useCustomToast from "../../hooks/useCustomToast.ts"
-import { handleError } from "../../utils.ts"
+import type { TDataCreateSchedule } from "../../client/services/scheduleService.ts"
+import useCreateSchedule from "../../hooks/useCreateSchedule.ts"
 
 interface TimerFormData {
   startDate: string
@@ -61,20 +55,7 @@ const TimerPanel = () => {
   // eslint-disable-next-line
   const startDate = watch("startDate")
 
-  const showToast = useCustomToast()
-  const queryClient = useQueryClient()
-  const mutation = useMutation({
-    mutationFn: (data: TDataCreateSchedule) => createSchedule(data),
-    onSuccess: () => {
-      showToast("Success!", "Schedule created successfully.", "success")
-    },
-    onError: (err: ApiError) => {
-      handleError(err, showToast)
-    },
-    onSettled: async () => {
-      await queryClient.invalidateQueries({ queryKey: ["schedule"] })
-    },
-  })
+  const { createNewSchedule } = useCreateSchedule()
 
   const onSubmit: SubmitHandler<TimerFormData> = (data: TimerFormData) => {
     const {
@@ -93,7 +74,7 @@ const TimerPanel = () => {
       skipWeekends,
       timesOfDay: [timeOfDay],
     }
-    mutation.mutate(submissionData)
+    createNewSchedule(submissionData)
   }
 
   return (
@@ -102,7 +83,14 @@ const TimerPanel = () => {
         <Heading size="lg">Question Schedule</Heading>
       </CardHeader>
       <CardBody>
-        <form onSubmit={/* eslint-disable */ handleSubmit(onSubmit)}>
+        <form
+          onSubmit={
+            /* eslint-disable */ () => {
+              console.log("meow")
+              handleSubmit(onSubmit)
+            }
+          }
+        >
           <Flex direction="column">
             <FormRow>
               <FormControl>
