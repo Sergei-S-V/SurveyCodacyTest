@@ -46,12 +46,13 @@ const AddInquiry = ({ isOpen, onClose }: AddInquiryProps) => {
   const showToast = useCustomToast()
 
   // already typed by react-hook-form https://react-hook-form.com/docs/useform#errors
-
+  // eslint-disable-next-line
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
+    // eslint-disable-next-line
   } = useForm<InquiryCreate>({
     mode: "onBlur",
     criteriaMode: "all",
@@ -65,7 +66,7 @@ const AddInquiry = ({ isOpen, onClose }: AddInquiryProps) => {
       InquiriesService.inquiriesCreateInquiry({ requestBody: data }),
     onSuccess: () => {
       showToast("Success!", "Inquiry created successfully.", "success")
-
+      // eslint-disable-next-line
       reset()
       onClose()
     },

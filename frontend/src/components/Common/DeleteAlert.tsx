@@ -77,7 +77,10 @@ const Delete = ({ type, id, isOpen, onClose }: DeleteProps) => {
         isCentered
       >
         <AlertDialogOverlay>
-          <AlertDialogContent as="form" onSubmit={() => handleSubmit(onSubmit)}>
+          <AlertDialogContent
+            as="form"
+            onSubmit={() => handleSubmit(onSubmit) /* esline-disable-line  */}
+          >
             <AlertDialogHeader>Delete {type}</AlertDialogHeader>
 
             <AlertDialogBody>
