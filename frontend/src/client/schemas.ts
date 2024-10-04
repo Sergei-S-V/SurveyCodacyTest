@@ -211,66 +211,6 @@ export const $NewPassword = {
 	},
 } as const;
 
-export const $ScheduleCreate = {
-	properties: {
-		schedule: {
-	type: 'ScheduleData',
-	isRequired: true,
-},
-	},
-} as const;
-
-export const $ScheduleData = {
-	properties: {
-		startDate: {
-	type: 'string',
-	isRequired: true,
-},
-		endDate: {
-	type: 'any-of',
-	contains: [{
-	type: 'string',
-}, {
-	type: 'null',
-}],
-	isRequired: true,
-},
-		daysBetween: {
-	type: 'number',
-	isRequired: true,
-},
-		skipWeekends: {
-	type: 'boolean',
-	isRequired: true,
-},
-		skipHolidays: {
-	type: 'boolean',
-	isRequired: true,
-},
-		timesOfDay: {
-	type: 'array',
-	contains: {
-	type: 'string',
-},
-	isRequired: true,
-},
-	},
-} as const;
-
-export const $SchedulePublic = {
-	properties: {
-		schedule: {
-	type: 'ScheduleData',
-	isRequired: true,
-},
-		id: {
-	type: 'string',
-	isRequired: true,
-	format: 'uuid',
-},
-	},
-} as const;
-
 export const $ThemeCreate = {
 	properties: {
 		name: {

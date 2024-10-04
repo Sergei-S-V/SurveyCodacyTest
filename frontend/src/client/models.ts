@@ -79,30 +79,6 @@ export type NewPassword = {
 
 
 
-export type ScheduleCreate = {
-	schedule: ScheduleData;
-};
-
-
-
-export type ScheduleData = {
-	startDate: string;
-	endDate: string | null;
-	daysBetween: number;
-	skipWeekends: boolean;
-	skipHolidays: boolean;
-	timesOfDay: Array<string>;
-};
-
-
-
-export type SchedulePublic = {
-	schedule: ScheduleData;
-	id: string;
-};
-
-
-
 export type ThemeCreate = {
 	name: string;
 	description?: string | null;
