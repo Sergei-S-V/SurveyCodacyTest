@@ -2,124 +2,131 @@ import type { CancelablePromise } from './core/CancelablePromise';
 import { OpenAPI } from './core/OpenAPI';
 import { request as __request } from './core/request';
 
-import type { Body_login_login_access_token,Message,NewPassword,Token,UserPublic,InquiryCreate,InquiryPublic,InquriesPublic,ThemeCreate,ThemePublic,ThemesPublic,UpdatePassword,UserCreate,UserRegister,UsersPublic,UserUpdate,UserUpdateMe,ItemCreate,ItemPublic,ItemsPublic,ItemUpdate } from './models';
+import type { Body_login_login_access_token,Message,NewPassword,Token,UserPublic,InquiryCreate,InquiryPublic,InquriesPublic,ThemeCreate,ThemePublic,ThemesPublic,UpdatePassword,UserCreate,UserRegister,UsersPublic,UserUpdate,UserUpdateMe,ItemCreate,ItemPublic,ItemsPublic,ItemUpdate,ScheduleCreate,SchedulePublic } from './models';
 
 export type LoginData = {
-        LoginLoginAccessToken: {
+        LoginAccessToken: {
                     formData: Body_login_login_access_token
                     
                 };
-LoginRecoverPassword: {
+RecoverPassword: {
                     email: string
                     
                 };
-LoginResetPassword: {
+ResetPassword: {
                     requestBody: NewPassword
                     
                 };
-LoginRecoverPasswordHtmlContent: {
+RecoverPasswordHtmlContent: {
                     email: string
                     
                 };
     }
 
 export type InquiriesData = {
-        InquiriesCreateInquiry: {
+        CreateInquiry: {
                     requestBody: InquiryCreate
                     
                 };
-InquiriesGetInquries: {
+GetInquries: {
                     limit?: number
 skip?: number
                     
                 };
-InquiriesReadInquiry: {
+ReadInquiry: {
                     inquiryId: string
                     
                 };
     }
 
 export type ThemesData = {
-        ThemesCreateTheme: {
+        CreateTheme: {
                     requestBody: ThemeCreate
                     
                 };
-ThemesGetThemes: {
+GetThemes: {
                     limit?: number
 skip?: number
                     
                 };
-ThemesReadTheme: {
+ReadTheme: {
                     themeId: string
                     
                 };
     }
 
 export type UsersData = {
-        UsersReadUsers: {
+        ReadUsers: {
                     limit?: number
 skip?: number
                     
                 };
-UsersCreateUser: {
+CreateUser: {
                     requestBody: UserCreate
                     
                 };
-UsersUpdateUserMe: {
+UpdateUserMe: {
                     requestBody: UserUpdateMe
                     
                 };
-UsersUpdatePasswordMe: {
+UpdatePasswordMe: {
                     requestBody: UpdatePassword
                     
                 };
-UsersRegisterUser: {
+RegisterUser: {
                     requestBody: UserRegister
                     
                 };
-UsersReadUserById: {
+ReadUserById: {
                     userId: string
                     
                 };
-UsersUpdateUser: {
+UpdateUser: {
                     requestBody: UserUpdate
 userId: string
                     
                 };
-UsersDeleteUser: {
+DeleteUser: {
                     userId: string
                     
                 };
     }
 
 export type UtilsData = {
-        UtilsTestEmail: {
+        TestEmail: {
                     emailTo: string
                     
                 };
     }
 
 export type ItemsData = {
-        ItemsReadItems: {
+        ReadItems: {
                     limit?: number
 skip?: number
                     
                 };
-ItemsCreateItem: {
+CreateItem: {
                     requestBody: ItemCreate
                     
                 };
-ItemsReadItem: {
+ReadItem: {
                     id: string
                     
                 };
-ItemsUpdateItem: {
+UpdateItem: {
                     id: string
 requestBody: ItemUpdate
                     
                 };
-ItemsDeleteItem: {
+DeleteItem: {
                     id: string
+                    
+                };
+    }
+
+export type ScheduleData = {
+        CreateSchedule: {
+                    requestBody: ScheduleCreate
                     
                 };
     }
@@ -132,7 +139,7 @@ export class LoginService {
 	 * @returns Token Successful Response
 	 * @throws ApiError
 	 */
-	public static loginLoginAccessToken(data: LoginData['LoginLoginAccessToken']): CancelablePromise<Token> {
+	public static loginAccessToken(data: LoginData['LoginAccessToken']): CancelablePromise<Token> {
 		const {
 formData,
 } = data;
@@ -153,7 +160,7 @@ formData,
 	 * @returns UserPublic Successful Response
 	 * @throws ApiError
 	 */
-	public static loginTestToken(): CancelablePromise<UserPublic> {
+	public static testToken(): CancelablePromise<UserPublic> {
 				return __request(OpenAPI, {
 			method: 'POST',
 			url: '/api/v1/login/test-token',
@@ -166,7 +173,7 @@ formData,
 	 * @returns Message Successful Response
 	 * @throws ApiError
 	 */
-	public static loginRecoverPassword(data: LoginData['LoginRecoverPassword']): CancelablePromise<Message> {
+	public static recoverPassword(data: LoginData['RecoverPassword']): CancelablePromise<Message> {
 		const {
 email,
 } = data;
@@ -188,7 +195,7 @@ email,
 	 * @returns Message Successful Response
 	 * @throws ApiError
 	 */
-	public static loginResetPassword(data: LoginData['LoginResetPassword']): CancelablePromise<Message> {
+	public static resetPassword(data: LoginData['ResetPassword']): CancelablePromise<Message> {
 		const {
 requestBody,
 } = data;
@@ -209,7 +216,7 @@ requestBody,
 	 * @returns string Successful Response
 	 * @throws ApiError
 	 */
-	public static loginRecoverPasswordHtmlContent(data: LoginData['LoginRecoverPasswordHtmlContent']): CancelablePromise<string> {
+	public static recoverPasswordHtmlContent(data: LoginData['RecoverPasswordHtmlContent']): CancelablePromise<string> {
 		const {
 email,
 } = data;
@@ -235,7 +242,7 @@ export class InquiriesService {
 	 * @returns InquiryPublic Successful Response
 	 * @throws ApiError
 	 */
-	public static inquiriesCreateInquiry(data: InquiriesData['InquiriesCreateInquiry']): CancelablePromise<InquiryPublic> {
+	public static createInquiry(data: InquiriesData['CreateInquiry']): CancelablePromise<InquiryPublic> {
 		const {
 requestBody,
 } = data;
@@ -256,7 +263,7 @@ requestBody,
 	 * @returns InquriesPublic Successful Response
 	 * @throws ApiError
 	 */
-	public static inquiriesGetInquries(data: InquiriesData['InquiriesGetInquries'] = {}): CancelablePromise<InquriesPublic> {
+	public static getInquries(data: InquiriesData['GetInquries'] = {}): CancelablePromise<InquriesPublic> {
 		const {
 skip = 0,
 limit = 100,
@@ -279,7 +286,7 @@ limit = 100,
 	 * @returns InquiryPublic Successful Response
 	 * @throws ApiError
 	 */
-	public static inquiriesReadInquiry(data: InquiriesData['InquiriesReadInquiry']): CancelablePromise<InquiryPublic> {
+	public static readInquiry(data: InquiriesData['ReadInquiry']): CancelablePromise<InquiryPublic> {
 		const {
 inquiryId,
 } = data;
@@ -305,7 +312,7 @@ export class ThemesService {
 	 * @returns ThemePublic Successful Response
 	 * @throws ApiError
 	 */
-	public static themesCreateTheme(data: ThemesData['ThemesCreateTheme']): CancelablePromise<ThemePublic> {
+	public static createTheme(data: ThemesData['CreateTheme']): CancelablePromise<ThemePublic> {
 		const {
 requestBody,
 } = data;
@@ -326,7 +333,7 @@ requestBody,
 	 * @returns ThemesPublic Successful Response
 	 * @throws ApiError
 	 */
-	public static themesGetThemes(data: ThemesData['ThemesGetThemes'] = {}): CancelablePromise<ThemesPublic> {
+	public static getThemes(data: ThemesData['GetThemes'] = {}): CancelablePromise<ThemesPublic> {
 		const {
 skip = 0,
 limit = 100,
@@ -349,7 +356,7 @@ limit = 100,
 	 * @returns ThemePublic Successful Response
 	 * @throws ApiError
 	 */
-	public static themesReadTheme(data: ThemesData['ThemesReadTheme']): CancelablePromise<ThemePublic> {
+	public static readTheme(data: ThemesData['ReadTheme']): CancelablePromise<ThemePublic> {
 		const {
 themeId,
 } = data;
@@ -375,7 +382,7 @@ export class UsersService {
 	 * @returns UsersPublic Successful Response
 	 * @throws ApiError
 	 */
-	public static usersReadUsers(data: UsersData['UsersReadUsers'] = {}): CancelablePromise<UsersPublic> {
+	public static readUsers(data: UsersData['ReadUsers'] = {}): CancelablePromise<UsersPublic> {
 		const {
 skip = 0,
 limit = 100,
@@ -398,7 +405,7 @@ limit = 100,
 	 * @returns UserPublic Successful Response
 	 * @throws ApiError
 	 */
-	public static usersCreateUser(data: UsersData['UsersCreateUser']): CancelablePromise<UserPublic> {
+	public static createUser(data: UsersData['CreateUser']): CancelablePromise<UserPublic> {
 		const {
 requestBody,
 } = data;
@@ -419,7 +426,7 @@ requestBody,
 	 * @returns UserPublic Successful Response
 	 * @throws ApiError
 	 */
-	public static usersReadUserMe(): CancelablePromise<UserPublic> {
+	public static readUserMe(): CancelablePromise<UserPublic> {
 				return __request(OpenAPI, {
 			method: 'GET',
 			url: '/api/v1/users/me',
@@ -432,7 +439,7 @@ requestBody,
 	 * @returns Message Successful Response
 	 * @throws ApiError
 	 */
-	public static usersDeleteUserMe(): CancelablePromise<Message> {
+	public static deleteUserMe(): CancelablePromise<Message> {
 				return __request(OpenAPI, {
 			method: 'DELETE',
 			url: '/api/v1/users/me',
@@ -445,7 +452,7 @@ requestBody,
 	 * @returns UserPublic Successful Response
 	 * @throws ApiError
 	 */
-	public static usersUpdateUserMe(data: UsersData['UsersUpdateUserMe']): CancelablePromise<UserPublic> {
+	public static updateUserMe(data: UsersData['UpdateUserMe']): CancelablePromise<UserPublic> {
 		const {
 requestBody,
 } = data;
@@ -466,7 +473,7 @@ requestBody,
 	 * @returns Message Successful Response
 	 * @throws ApiError
 	 */
-	public static usersUpdatePasswordMe(data: UsersData['UsersUpdatePasswordMe']): CancelablePromise<Message> {
+	public static updatePasswordMe(data: UsersData['UpdatePasswordMe']): CancelablePromise<Message> {
 		const {
 requestBody,
 } = data;
@@ -487,7 +494,7 @@ requestBody,
 	 * @returns UserPublic Successful Response
 	 * @throws ApiError
 	 */
-	public static usersRegisterUser(data: UsersData['UsersRegisterUser']): CancelablePromise<UserPublic> {
+	public static registerUser(data: UsersData['RegisterUser']): CancelablePromise<UserPublic> {
 		const {
 requestBody,
 } = data;
@@ -508,7 +515,7 @@ requestBody,
 	 * @returns UserPublic Successful Response
 	 * @throws ApiError
 	 */
-	public static usersReadUserById(data: UsersData['UsersReadUserById']): CancelablePromise<UserPublic> {
+	public static readUserById(data: UsersData['ReadUserById']): CancelablePromise<UserPublic> {
 		const {
 userId,
 } = data;
@@ -530,7 +537,7 @@ userId,
 	 * @returns UserPublic Successful Response
 	 * @throws ApiError
 	 */
-	public static usersUpdateUser(data: UsersData['UsersUpdateUser']): CancelablePromise<UserPublic> {
+	public static updateUser(data: UsersData['UpdateUser']): CancelablePromise<UserPublic> {
 		const {
 userId,
 requestBody,
@@ -555,7 +562,7 @@ requestBody,
 	 * @returns Message Successful Response
 	 * @throws ApiError
 	 */
-	public static usersDeleteUser(data: UsersData['UsersDeleteUser']): CancelablePromise<Message> {
+	public static deleteUser(data: UsersData['DeleteUser']): CancelablePromise<Message> {
 		const {
 userId,
 } = data;
@@ -581,7 +588,7 @@ export class UtilsService {
 	 * @returns Message Successful Response
 	 * @throws ApiError
 	 */
-	public static utilsTestEmail(data: UtilsData['UtilsTestEmail']): CancelablePromise<Message> {
+	public static testEmail(data: UtilsData['TestEmail']): CancelablePromise<Message> {
 		const {
 emailTo,
 } = data;
@@ -607,7 +614,7 @@ export class ItemsService {
 	 * @returns ItemsPublic Successful Response
 	 * @throws ApiError
 	 */
-	public static itemsReadItems(data: ItemsData['ItemsReadItems'] = {}): CancelablePromise<ItemsPublic> {
+	public static readItems(data: ItemsData['ReadItems'] = {}): CancelablePromise<ItemsPublic> {
 		const {
 skip = 0,
 limit = 100,
@@ -630,7 +637,7 @@ limit = 100,
 	 * @returns ItemPublic Successful Response
 	 * @throws ApiError
 	 */
-	public static itemsCreateItem(data: ItemsData['ItemsCreateItem']): CancelablePromise<ItemPublic> {
+	public static createItem(data: ItemsData['CreateItem']): CancelablePromise<ItemPublic> {
 		const {
 requestBody,
 } = data;
@@ -651,7 +658,7 @@ requestBody,
 	 * @returns ItemPublic Successful Response
 	 * @throws ApiError
 	 */
-	public static itemsReadItem(data: ItemsData['ItemsReadItem']): CancelablePromise<ItemPublic> {
+	public static readItem(data: ItemsData['ReadItem']): CancelablePromise<ItemPublic> {
 		const {
 id,
 } = data;
@@ -673,7 +680,7 @@ id,
 	 * @returns ItemPublic Successful Response
 	 * @throws ApiError
 	 */
-	public static itemsUpdateItem(data: ItemsData['ItemsUpdateItem']): CancelablePromise<ItemPublic> {
+	public static updateItem(data: ItemsData['UpdateItem']): CancelablePromise<ItemPublic> {
 		const {
 id,
 requestBody,
@@ -698,7 +705,7 @@ requestBody,
 	 * @returns Message Successful Response
 	 * @throws ApiError
 	 */
-	public static itemsDeleteItem(data: ItemsData['ItemsDeleteItem']): CancelablePromise<Message> {
+	public static deleteItem(data: ItemsData['DeleteItem']): CancelablePromise<Message> {
 		const {
 id,
 } = data;
@@ -708,6 +715,42 @@ id,
 			path: {
 				id
 			},
+			errors: {
+				422: `Validation Error`,
+			},
+		});
+	}
+
+}
+
+export class ScheduleService {
+
+	/**
+	 * Get Schedule
+	 * @returns unknown Successful Response
+	 * @throws ApiError
+	 */
+	public static getSchedule(): CancelablePromise<SchedulePublic | null> {
+				return __request(OpenAPI, {
+			method: 'GET',
+			url: '/api/v1/schedule/',
+		});
+	}
+
+	/**
+	 * Create Schedule
+	 * @returns SchedulePublic Successful Response
+	 * @throws ApiError
+	 */
+	public static createSchedule(data: ScheduleData['CreateSchedule']): CancelablePromise<SchedulePublic> {
+		const {
+requestBody,
+} = data;
+		return __request(OpenAPI, {
+			method: 'POST',
+			url: '/api/v1/schedule/',
+			body: requestBody,
+			mediaType: 'application/json',
 			errors: {
 				422: `Validation Error`,
 			},
