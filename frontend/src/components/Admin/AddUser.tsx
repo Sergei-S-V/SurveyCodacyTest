@@ -84,7 +84,7 @@ const AddUser = ({ isOpen, onClose }: AddUserProps) => {
         <ModalOverlay />
         <ModalContent
           as="form"
-          onSubmit={() => /* eslint-disable */ handleSubmit(onSubmit)}
+          onSubmit={() => handleSubmit(onSubmit) /* eslint-disable */}
         >
           <ModalHeader>Add User</ModalHeader>
           <ModalCloseButton />
