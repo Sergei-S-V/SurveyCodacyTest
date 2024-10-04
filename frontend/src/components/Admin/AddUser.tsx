@@ -17,8 +17,7 @@ import {
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { type SubmitHandler, useForm } from "react-hook-form"
 
-import { type UserCreate } from "../../client"
-import * as UsersService from "../../client/services/usersService"
+import { type UserCreate, UsersService } from "../../client"
 import type { ApiError } from "../../client/core/ApiError"
 import useCustomToast from "../../hooks/useCustomToast"
 import { emailPattern, handleError } from "../../utils"
@@ -56,7 +55,7 @@ const AddUser = ({ isOpen, onClose }: AddUserProps) => {
 
   const mutation = useMutation({
     mutationFn: (data: UserCreate) =>
-      UsersService.createUser({ requestBody: data }),
+      UsersService.usersCreateUser({ requestBody: data }),
     onSuccess: () => {
       showToast("Success!", "User created successfully.", "success")
       reset()
@@ -65,12 +64,12 @@ const AddUser = ({ isOpen, onClose }: AddUserProps) => {
     onError: (err: ApiError) => {
       handleError(err, showToast)
     },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["users"] })
+    onSettled: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["users"] })
     },
   })
 
-  const onSubmit: SubmitHandler<UserCreateForm> = (data) => {
+  const onSubmit: SubmitHandler<UserCreateForm> = (data: UserCreateForm) => {
     mutation.mutate(data)
   }
 
@@ -83,7 +82,7 @@ const AddUser = ({ isOpen, onClose }: AddUserProps) => {
         isCentered
       >
         <ModalOverlay />
-        <ModalContent as="form" onSubmit={handleSubmit(onSubmit)}>
+        <ModalContent as="form" onSubmit={() => handleSubmit(onSubmit)}>
           <ModalHeader>Add User</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>

@@ -11,7 +11,7 @@ import { useMutation } from "@tanstack/react-query"
 import { createFileRoute, redirect } from "@tanstack/react-router"
 import { type SubmitHandler, useForm } from "react-hook-form"
 
-import { type ApiError } from "../client"
+import type { ApiError } from "../client"
 import * as LoginService from "../client/services/loginService"
 import { isLoggedIn } from "../hooks/useAuth"
 import useCustomToast from "../hooks/useCustomToast"
@@ -23,9 +23,9 @@ interface FormData {
 
 export const Route = createFileRoute("/recover-password")({
   component: RecoverPassword,
-  beforeLoad: async () => {
+  beforeLoad: () => {
     if (isLoggedIn()) {
-      throw redirect({
+      redirect({
         to: "/",
       })
     }

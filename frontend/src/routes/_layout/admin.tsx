@@ -19,8 +19,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router"
 import { useEffect } from "react"
 import { z } from "zod"
 
-import { type UserPublic } from "../../client"
-import * as UsersService from "../../client/services/usersService"
+import { type UserPublic, UsersService } from "../../client"
 import AddUser from "../../components/Admin/AddUser"
 import ActionsMenu from "../../components/Common/ActionsMenu"
 import Navbar from "../../components/Common/Navbar"
@@ -39,7 +38,10 @@ const PER_PAGE = 5
 function getUsersQueryOptions({ page }: { page: number }) {
   return {
     queryFn: () =>
-      UsersService.readUsers({ skip: (page - 1) * PER_PAGE, limit: PER_PAGE }),
+      UsersService.usersReadUsers({
+        skip: (page - 1) * PER_PAGE,
+        limit: PER_PAGE,
+      }),
     queryKey: ["users", { page }],
   }
 }

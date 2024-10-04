@@ -11,8 +11,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import React from "react"
 import { useForm } from "react-hook-form"
 
-import { type ApiError } from "../../client"
-import * as UsersService from "../../client/services/usersService"
+import { type ApiError, UsersService } from "../../client"
 import useAuth from "../../hooks/useAuth"
 import useCustomToast from "../../hooks/useCustomToast"
 import { handleError } from "../../utils"
@@ -33,7 +32,7 @@ const DeleteConfirmation = ({ isOpen, onClose }: DeleteProps) => {
   const { logout } = useAuth()
 
   const mutation = useMutation({
-    mutationFn: () => UsersService.deleteUserMe(),
+    mutationFn: () => UsersService.usersDeleteUserMe(),
     onSuccess: () => {
       showToast(
         "Success",
@@ -46,12 +45,12 @@ const DeleteConfirmation = ({ isOpen, onClose }: DeleteProps) => {
     onError: (err: ApiError) => {
       handleError(err, showToast)
     },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["currentUser"] })
+    onSettled: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["currentUser"] })
     },
   })
 
-  const onSubmit = async () => {
+  const onSubmit = () => {
     mutation.mutate()
   }
 
@@ -65,7 +64,7 @@ const DeleteConfirmation = ({ isOpen, onClose }: DeleteProps) => {
         isCentered
       >
         <AlertDialogOverlay>
-          <AlertDialogContent as="form" onSubmit={handleSubmit(onSubmit)}>
+          <AlertDialogContent as="form" onSubmit={() => handleSubmit(onSubmit)}>
             <AlertDialogHeader>Confirmation Required</AlertDialogHeader>
 
             <AlertDialogBody>

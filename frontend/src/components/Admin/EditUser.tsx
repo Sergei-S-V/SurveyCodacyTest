@@ -21,8 +21,8 @@ import {
   type ApiError,
   type UserPublic,
   type UserUpdate,
+  UsersService,
 } from "../../client"
-import * as UsersService from "../../client/services/usersService"
 import useCustomToast from "../../hooks/useCustomToast"
 import { emailPattern, handleError } from "../../utils"
 
@@ -54,7 +54,7 @@ const EditUser = ({ user, isOpen, onClose }: EditUserProps) => {
 
   const mutation = useMutation({
     mutationFn: (data: UserUpdateForm) =>
-      UsersService.updateUser({ userId: user.id, requestBody: data }),
+      UsersService.usersUpdateUser({ userId: user.id, requestBody: data }),
     onSuccess: () => {
       showToast("Success!", "User updated successfully.", "success")
       onClose()
@@ -62,12 +62,12 @@ const EditUser = ({ user, isOpen, onClose }: EditUserProps) => {
     onError: (err: ApiError) => {
       handleError(err, showToast)
     },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["users"] })
+    onSettled: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["users"] })
     },
   })
 
-  const onSubmit: SubmitHandler<UserUpdateForm> = async (data) => {
+  const onSubmit: SubmitHandler<UserUpdateForm> = (data) => {
     if (data.password === "") {
       data.password = undefined
     }
@@ -88,7 +88,7 @@ const EditUser = ({ user, isOpen, onClose }: EditUserProps) => {
         isCentered
       >
         <ModalOverlay />
-        <ModalContent as="form" onSubmit={handleSubmit(onSubmit)}>
+        <ModalContent as="form" onSubmit={() => handleSubmit(onSubmit)}>
           <ModalHeader>Edit User</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>

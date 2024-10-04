@@ -20,8 +20,10 @@ export default [
     files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"],
     languageOptions: { globals: globals.browser },
     rules: {
+      "@typescript-eslint/no-unsafe-member-access": "off",
       "react/react-in-jsx-scope": "off",
       "react/jsx-uses-react": "off",
+      "react/no-unescaped-entities": "off",
     },
   },
 ]

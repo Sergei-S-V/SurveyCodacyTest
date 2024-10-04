@@ -19,8 +19,8 @@ import {
   type ApiError,
   type ItemPublic,
   type ItemUpdate,
+  ItemsService,
 } from "../../client"
-import * as ItemsService from "../../client/services/itemsService"
 import useCustomToast from "../../hooks/useCustomToast"
 import { handleError } from "../../utils"
 
@@ -46,7 +46,7 @@ const EditItem = ({ item, isOpen, onClose }: EditItemProps) => {
 
   const mutation = useMutation({
     mutationFn: (data: ItemUpdate) =>
-      ItemsService.updateItem({ id: item.id, requestBody: data }),
+      ItemsService.itemsUpdateItem({ id: item.id, requestBody: data }),
     onSuccess: () => {
       showToast("Success!", "Item updated successfully.", "success")
       onClose()
@@ -54,12 +54,12 @@ const EditItem = ({ item, isOpen, onClose }: EditItemProps) => {
     onError: (err: ApiError) => {
       handleError(err, showToast)
     },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["items"] })
+    onSettled: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["items"] })
     },
   })
 
-  const onSubmit: SubmitHandler<ItemUpdate> = async (data) => {
+  const onSubmit: SubmitHandler<ItemUpdate> = (data) => {
     mutation.mutate(data)
   }
 
@@ -77,7 +77,7 @@ const EditItem = ({ item, isOpen, onClose }: EditItemProps) => {
         isCentered
       >
         <ModalOverlay />
-        <ModalContent as="form" onSubmit={handleSubmit(onSubmit)}>
+        <ModalContent as="form" onSubmit={() => handleSubmit(onSubmit)}>
           <ModalHeader>Edit Item</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>

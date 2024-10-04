@@ -15,8 +15,7 @@ import {
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { type SubmitHandler, useForm } from "react-hook-form"
 
-import { type ApiError, type ItemCreate } from "../../client"
-import * as ItemsService from "../../client/services/itemsService"
+import { type ApiError, type ItemCreate, ItemsService } from "../../client"
 import useCustomToast from "../../hooks/useCustomToast"
 import { handleError } from "../../utils"
 
@@ -44,7 +43,7 @@ const AddItem = ({ isOpen, onClose }: AddItemProps) => {
 
   const mutation = useMutation({
     mutationFn: (data: ItemCreate) =>
-      ItemsService.createItem({ requestBody: data }),
+      ItemsService.itemsCreateItem({ requestBody: data }),
     onSuccess: () => {
       showToast("Success!", "Item created successfully.", "success")
       reset()
@@ -53,8 +52,8 @@ const AddItem = ({ isOpen, onClose }: AddItemProps) => {
     onError: (err: ApiError) => {
       handleError(err, showToast)
     },
-    onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ["items"] })
+    onSettled: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["items"] })
     },
   })
 
@@ -71,7 +70,7 @@ const AddItem = ({ isOpen, onClose }: AddItemProps) => {
         isCentered
       >
         <ModalOverlay />
-        <ModalContent as="form" onSubmit={handleSubmit(onSubmit)}>
+        <ModalContent as="form" onSubmit={() => handleSubmit(onSubmit)}>
           <ModalHeader>Add Item</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>

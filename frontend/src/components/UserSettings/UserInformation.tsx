@@ -19,8 +19,8 @@ import {
   type ApiError,
   type UserPublic,
   type UserUpdateMe,
+  UsersService,
 } from "../../client"
-import * as UsersService from "../../client/services/usersService"
 import useAuth from "../../hooks/useAuth"
 import useCustomToast from "../../hooks/useCustomToast"
 import { emailPattern, handleError } from "../../utils"
@@ -52,19 +52,19 @@ const UserInformation = () => {
 
   const mutation = useMutation({
     mutationFn: (data: UserUpdateMe) =>
-      UsersService.updateUserMe({ requestBody: data }),
+      UsersService.usersUpdateUserMe({ requestBody: data }),
     onSuccess: () => {
       showToast("Success!", "User updated successfully.", "success")
     },
     onError: (err: ApiError) => {
       handleError(err, showToast)
     },
-    onSettled: () => {
-      queryClient.invalidateQueries()
+    onSettled: async () => {
+      await queryClient.invalidateQueries()
     },
   })
 
-  const onSubmit: SubmitHandler<UserUpdateMe> = async (data) => {
+  const onSubmit: SubmitHandler<UserUpdateMe> = (data) => {
     mutation.mutate(data)
   }
 
@@ -82,7 +82,7 @@ const UserInformation = () => {
         <Box
           w={{ sm: "full", md: "50%" }}
           as="form"
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={() => handleSubmit(onSubmit)}
         >
           <FormControl>
             <FormLabel color={color} htmlFor="name">

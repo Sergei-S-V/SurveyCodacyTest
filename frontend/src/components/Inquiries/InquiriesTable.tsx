@@ -10,14 +10,14 @@ import {
 } from "@chakra-ui/react"
 import { useQuery } from "@tanstack/react-query"
 import { useMemo } from "react"
-import * as InquiriesService from "../../client/services/inquiriesService.ts"
+import { InquiriesService } from "../../client"
 import { formatISODateToUserTimezone } from "../../utils/date.ts"
 
 const InquiriesTable = () => {
   function getInquiriesQueryOptions() {
     return {
       queryKey: ["inquiries"],
-      queryFn: () => InquiriesService.readInquiries(),
+      queryFn: () => InquiriesService.inquiriesGetInquries(),
     }
   }
 
