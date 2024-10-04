@@ -13,11 +13,7 @@ import {
   Textarea,
 } from "@chakra-ui/react"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import {
-  type SubmitHandler,
-  type UseFormReturn,
-  useForm,
-} from "react-hook-form"
+import { type SubmitHandler, useForm } from "react-hook-form"
 
 import {
   type ApiError,
@@ -56,7 +52,7 @@ const AddInquiry = ({ isOpen, onClose }: AddInquiryProps) => {
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  }: UseFormReturn<InquiryCreate> = useForm<InquiryCreate>({
+  } = useForm<InquiryCreate>({
     mode: "onBlur",
     criteriaMode: "all",
     defaultValues: {

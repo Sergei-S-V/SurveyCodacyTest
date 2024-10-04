@@ -15,11 +15,7 @@ import {
   ModalOverlay,
 } from "@chakra-ui/react"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import {
-  type SubmitHandler,
-  type UseFormReturn,
-  useForm,
-} from "react-hook-form"
+import { type SubmitHandler, useForm } from "react-hook-form"
 
 import { type UserCreate, UsersService } from "../../client"
 import type { ApiError } from "../../client/core/ApiError"
@@ -44,7 +40,7 @@ const AddUser = ({ isOpen, onClose }: AddUserProps) => {
     reset,
     getValues,
     formState: { errors, isSubmitting },
-  }: UseFormReturn<UserCreateForm> = useForm<UserCreateForm>({
+  } = useForm<UserCreateForm>({
     mode: "onBlur",
     criteriaMode: "all",
     defaultValues: {

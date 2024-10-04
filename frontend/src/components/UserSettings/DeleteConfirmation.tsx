@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import React from "react"
-import { type UseFormReturn, useForm } from "react-hook-form"
+import { useForm } from "react-hook-form"
 
 import { type ApiError, UsersService } from "../../client"
 import useAuth from "../../hooks/useAuth"
@@ -28,7 +28,7 @@ const DeleteConfirmation = ({ isOpen, onClose }: DeleteProps) => {
   const {
     handleSubmit,
     formState: { isSubmitting },
-  }: UseFormReturn = useForm()
+  } = useForm()
   const { logout } = useAuth()
 
   const mutation = useMutation({
