@@ -11,7 +11,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import React from "react"
 import { useForm } from "react-hook-form"
 
-import { UsersService } from "../../client/services/usersService"
+import { UsersService } from "../../client/services"
 
 import useCustomToast from "../../hooks/useCustomToast"
 
