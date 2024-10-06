@@ -59,7 +59,9 @@ const ChangePassword = () => {
         <Box
           w={{ sm: "full", md: "50%" }}
           as="form"
-          onSubmit={() => handleSubmit(onSubmit)}
+          onSubmit={() => {
+            handleSubmit(onSubmit)
+          }}
         >
           <FormControl isRequired isInvalid={!!errors.current_password}>
             <FormLabel color={color} htmlFor="current_password">

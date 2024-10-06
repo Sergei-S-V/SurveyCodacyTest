@@ -77,7 +77,12 @@ const EditItem = ({ item, isOpen, onClose }: EditItemProps) => {
         isCentered
       >
         <ModalOverlay />
-        <ModalContent as="form" onSubmit={() => handleSubmit(onSubmit)}>
+        <ModalContent
+          as="form"
+          onSubmit={() => {
+            handleSubmit(onSubmit)
+          }}
+        >
           <ModalHeader>Edit Item</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>

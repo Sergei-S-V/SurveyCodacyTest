@@ -82,7 +82,9 @@ const UserInformation = () => {
         <Box
           w={{ sm: "full", md: "50%" }}
           as="form"
-          onSubmit={() => handleSubmit(onSubmit)}
+          onSubmit={() => {
+            handleSubmit(onSubmit)
+          }}
         >
           <FormControl>
             <FormLabel color={color} htmlFor="name">
