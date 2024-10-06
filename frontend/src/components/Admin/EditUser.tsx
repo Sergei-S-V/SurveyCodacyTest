@@ -88,7 +88,12 @@ const EditUser = ({ user, isOpen, onClose }: EditUserProps) => {
         isCentered
       >
         <ModalOverlay />
-        <ModalContent as="form" onSubmit={() => handleSubmit(onSubmit)}>
+        <ModalContent
+          as="form"
+          onSubmit={() => {
+            handleSubmit(onSubmit)
+          }}
+        >
           <ModalHeader>Edit User</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>

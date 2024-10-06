@@ -70,7 +70,12 @@ const AddItem = ({ isOpen, onClose }: AddItemProps) => {
         isCentered
       >
         <ModalOverlay />
-        <ModalContent as="form" onSubmit={() => handleSubmit(onSubmit)}>
+        <ModalContent
+          as="form"
+          onSubmit={() => {
+            handleSubmit(onSubmit)
+          }}
+        >
           <ModalHeader>Add Item</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>

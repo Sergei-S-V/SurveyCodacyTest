@@ -82,7 +82,12 @@ const AddUser = ({ isOpen, onClose }: AddUserProps) => {
         isCentered
       >
         <ModalOverlay />
-        <ModalContent as="form" onSubmit={() => handleSubmit(onSubmit)}>
+        <ModalContent
+          as="form"
+          onSubmit={() => {
+            handleSubmit(onSubmit)
+          }}
+        >
           <ModalHeader>Add User</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
