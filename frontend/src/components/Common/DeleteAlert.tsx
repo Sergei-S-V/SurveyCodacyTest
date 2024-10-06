@@ -33,7 +33,7 @@ const Delete = ({ type, id, isOpen, onClose }: DeleteProps) => {
 
   const deleteEntity = async (id: string) => {
     if (type === "User") {
-      await UsersService.deleteUser({ userId: id })
+      await UsersService.usersDeleteUser({ userId: id })
     } else {
       throw new Error(`Unexpected type: ${type}`)
     }
