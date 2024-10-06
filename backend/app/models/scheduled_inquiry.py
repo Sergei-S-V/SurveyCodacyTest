@@ -9,13 +9,13 @@ if TYPE_CHECKING:
 
 # Shared properties
 class ScheduledInquiryBase(SQLModel):
-    inquiry_id: uuid.UUID = Field(foreign_key="inquiry.id")
+    inquiry_id: uuid.UUID = Field(foreign_key="inquiry.id", ondelete="CASCADE")
     rank: int = Field(ge=1)  # rank starts at 1
 
 
 # Properties to receive on ScheduledInquiry creation
-class ScheduledInquiryCreate(ScheduledInquiryBase):
-    pass
+class ScheduledInquiryCreate(SQLModel):
+    inquiry_id: uuid.UUID = Field(foreign_key="inquiry.id")
 
 
 # Database model
@@ -26,12 +26,16 @@ class ScheduledInquiry(ScheduledInquiryBase, table=True):
     inquiry: "Inquiry" = Relationship(back_populates="scheduled_inquiries")
 
 
-# Properties to return via API for a single ScheduledInquiry
+# Properties to return via API. Contains Inquiry text.
 class ScheduledInquiryPublic(ScheduledInquiryBase):
     id: uuid.UUID
 
 
-# Properties to return via API for multiple ScheduledInquiries
+class ScheduledInquiryPublicWithInquiryText(ScheduledInquiryPublic):
+    text: str
+
+
+# Properties to return via API.
 class ScheduledInquiriesPublic(SQLModel):
-    data: list[ScheduledInquiryPublic]
+    data: list[ScheduledInquiryPublicWithInquiryText]
     count: int

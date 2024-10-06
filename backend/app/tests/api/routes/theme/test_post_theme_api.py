@@ -4,7 +4,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from app.models.theme import MAX_NAME_LENGTH, MIN_NAME_LENGTH
-from app.tests.utils.theme import post_theme
+from app.tests.utils.api_post import api_post
 
 
 def test_post_theme_when_theme_does_not_exist_should_create_theme(
@@ -14,7 +14,14 @@ def test_post_theme_when_theme_does_not_exist_should_create_theme(
         "name": "Leadership",
         "description": "Focus on qualities of leadership, such as guidance, influence, vision, and the ability to inspire and empower others.",
     }
-    content = post_theme(client, superuser_token_headers, data, expected_status=200)
+
+    content = api_post(
+        client=client,
+        headers=superuser_token_headers,
+        prefix="themes",
+        data=data,
+        expected_status=200,
+    )
 
     assert content["name"] == data["name"]
     assert content["description"] == data["description"]
@@ -30,10 +37,22 @@ def test_post_theme_when_theme_exists_should_return_400(
     }
 
     # First creation should succeed
-    post_theme(client, superuser_token_headers, data, expected_status=200)
+    api_post(
+        client=client,
+        headers=superuser_token_headers,
+        prefix="themes",
+        data=data,
+        expected_status=200,
+    )
 
     # Second creation should fail
-    content = post_theme(client, superuser_token_headers, data, expected_status=400)
+    content = api_post(
+        client=client,
+        headers=superuser_token_headers,
+        prefix="themes",
+        data=data,
+        expected_status=400,
+    )
 
     assert content["detail"] == "This theme already exists."
 
@@ -61,7 +80,13 @@ def test_post_theme_when_invalid_inputs_should_return_422(
     data: dict[str, Any],
     expected_error: str,
 ) -> None:
-    content = post_theme(client, superuser_token_headers, data, expected_status=422)
+    content = api_post(
+        client=client,
+        headers=superuser_token_headers,
+        prefix="themes",
+        data=data,
+        expected_status=422,
+    )
 
     response_text = str(content)
 

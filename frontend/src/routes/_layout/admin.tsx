@@ -51,8 +51,7 @@ function UsersTable() {
   const currentUser = queryClient.getQueryData<UserPublic>(["currentUser"])
   const { page } = Route.useSearch()
   const navigate = useNavigate({ from: Route.fullPath })
-  const setPage = (page: number) =>
-    navigate({ search: (prev) => ({ ...prev, page }) })
+  const setPage = (page: number) => navigate({ search: { page } })
 
   const {
     data: users,
@@ -131,7 +130,7 @@ function UsersTable() {
                     <ActionsMenu
                       type="User"
                       value={user}
-                      disabled={currentUser?.id === user.id ? true : false}
+                      disabled={currentUser?.id === user.id}
                     />
                   </Td>
                 </Tr>

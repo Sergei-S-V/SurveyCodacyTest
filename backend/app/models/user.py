@@ -7,8 +7,6 @@ from sqlmodel import Field, Relationship, SQLModel
 if TYPE_CHECKING:
     from app.models.response import Response
 
-    from .item import Item
-
 
 # Shared properties
 class UserBase(SQLModel):
@@ -51,7 +49,6 @@ class User(UserBase, table=True):
     hashed_password: str
 
     # Relationships
-    items: list["Item"] = Relationship(back_populates="owner", cascade_delete=True)
     responses: list["Response"] = Relationship(back_populates="user")
 
 

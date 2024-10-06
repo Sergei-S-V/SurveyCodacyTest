@@ -30,7 +30,7 @@ class Inquiry(InquiryBase, table=True):
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
     scheduled_inquiries: list["ScheduledInquiry"] = Relationship(
-        back_populates="inquiry"
+        back_populates="inquiry", cascade_delete=True
     )
     responses: list["Response"] = Relationship(back_populates="inquiry")
 
