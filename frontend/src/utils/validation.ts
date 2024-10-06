@@ -19,6 +19,8 @@ export const isISODateTimeString = (date: string): boolean => {
 }
 
 export const passwordRules = (isRequired = true) => {
+  // These is from the boilerplate.  Not sure whether we can improve on the "any"
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const rules: Record<string, any> = {
     minLength: {
       value: 8,

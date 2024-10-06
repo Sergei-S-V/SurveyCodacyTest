@@ -23,6 +23,8 @@ const useAuth = () => {
   const queryClient = useQueryClient()
   const { data: user, isLoading } = useQuery<UserPublic | null, Error>({
     queryKey: ["currentUser"],
+    // Avoid referencing unbound methods which may cause unintentional scoping of `this`. If your function does not access `this`, you can annotate it with `this: void`, or consider using an arrow function instead
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     queryFn: UsersService.usersReadUserMe,
     enabled: isLoggedIn(),
   })
