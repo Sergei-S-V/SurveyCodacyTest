@@ -1,3 +1,5 @@
+const path = require("node:path");
+
 module.exports = {
   extends: [
     "plugin:react/recommended",
@@ -7,7 +9,7 @@ module.exports = {
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
-    project: "./tsconfig.json",
+    project: path.join(__dirname, "tsconfig.json"),
     tsconfigRootDir: __dirname,
   },
   plugins: ["@typescript-eslint"],
@@ -20,5 +22,10 @@ module.exports = {
     "react/jsx-uses-react": "off",
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": "error",
+  },
+  settings: {
+    react: {
+      version: "detect", // Automatically detect the React version
+    },
   },
 };
