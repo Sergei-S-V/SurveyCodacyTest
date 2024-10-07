@@ -16,9 +16,11 @@ from .auth import Message, NewPassword, Token, TokenPayload, UpdatePassword
 from .inquiry import Inquiry, InquiryCreate, InquiryPublic, InquriesPublic
 from .item import Item, ItemCreate, ItemPublic, ItemsPublic, ItemUpdate
 from .response import Response, ResponseCreate, ResponsePublic, ResponsesPublic
+from .schedule import Schedule, ScheduleCreate, ScheduleData, SchedulePublic
 from .scheduled_inquiry import (
     ScheduledInquiriesPublic,
     ScheduledInquiry,
+    ScheduledInquiryBase,
     ScheduledInquiryCreate,
     ScheduledInquiryPublic,
 )
@@ -73,7 +75,13 @@ __all__ = [
     "ResponsesPublic",
     # scheduled_inquiry model
     "ScheduledInquiry",
+    "ScheduledInquiryBase",
     "ScheduledInquiryCreate",
     "ScheduledInquiryPublic",
     "ScheduledInquiriesPublic",
+    # schedule model
+    "Schedule",
+    "ScheduleCreate",
+    "SchedulePublic",
+    "ScheduleData",
 ]
