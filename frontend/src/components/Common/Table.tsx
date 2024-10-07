@@ -6,20 +6,20 @@ import {
   Th,
   Thead,
   Tr,
-} from "@chakra-ui/react"
+} from "@chakra-ui/react";
 import {
   type ColumnDef,
   type Table as ReactTableType,
   flexRender,
   getCoreRowModel,
   useReactTable,
-} from "@tanstack/react-table"
+} from "@tanstack/react-table";
 
 export type DataTableProps<Data extends object> = {
-  data: Data[]
-  columns: ColumnDef<Data, unknown>[]
-  onRowClick?: (row: Data) => void
-}
+  data: Data[];
+  columns: ColumnDef<Data, unknown>[];
+  onRowClick?: (row: Data) => void;
+};
 
 export function DataTable<Data extends object>({
   data,
@@ -30,7 +30,7 @@ export function DataTable<Data extends object>({
     columns,
     data,
     getCoreRowModel: getCoreRowModel(),
-  })
+  });
 
   return (
     <TableContainer>
@@ -40,10 +40,7 @@ export function DataTable<Data extends object>({
             <Tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
                 <Th key={header.id}>
-                  {flexRender(
-                    header.column.columnDef.header,
-                    header.getContext(),
-                  )}
+                  {flexRender(header.column.columnDef.header, header.getContext())}
                 </Th>
               ))}
             </Tr>
@@ -51,7 +48,7 @@ export function DataTable<Data extends object>({
         </Thead>
         <Tbody>
           {table.getRowModel().rows.map((row) => {
-            const { original } = row
+            const { original } = row;
             return (
               <Tr key={row.id} onClick={() => onRowClick?.(original)}>
                 {row.getVisibleCells().map((cell) => (
@@ -60,10 +57,10 @@ export function DataTable<Data extends object>({
                   </Td>
                 ))}
               </Tr>
-            )
+            );
           })}
         </Tbody>
       </ChakraTable>
     </TableContainer>
-  )
+  );
 }
